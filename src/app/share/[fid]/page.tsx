@@ -4,14 +4,14 @@ import { APP_URL, APP_NAME, APP_DESCRIPTION } from "~/lib/constants";
 import { getFrameEmbedMetadata } from "~/lib/utils";
 export const revalidate = 300;
 
-type PageParams = {
+interface PageProps {
   params: {
     fid: string;
   };
-};
+}
 
 // generateMetadata harus menerima PageParams, bukan Promise
-export async function generateMetadata({ params }: PageParams): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const fid = params.fid;
   const imageUrl = `${APP_URL}/api/opengraph-image?fid=${fid}`;
 
@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: PageParams): Promise<Metadata
   };
 }
 
-export default function Page({ params }: PageParams) {
+export default function Page({ params }: PageProps) {
   redirect("/");
   return null;
 }
