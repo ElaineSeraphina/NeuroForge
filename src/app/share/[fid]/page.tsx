@@ -24,7 +24,14 @@ export async function generateMetadata({ params }: { params: { fid: string } }):
   };
 }
 
-export default function SharePage() {
+type PageProps = {
+  params: {
+    fid: string;
+  };
+};
+
+export default function Page({ params }: PageProps) {
   // redirect to home page
   redirect("/");
-} 
+  return null;
+}
