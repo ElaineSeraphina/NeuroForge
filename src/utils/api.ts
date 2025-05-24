@@ -20,6 +20,12 @@ export async function generateImage(prompt: string, settings: ImageSettings): Pr
     }),
   });
 
+  // Cek status HTTP
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.error?.message || `HTTP error ${response.status}`);
+  }
+
   const data = await response.json();
   // Debug log
   console.log('OpenAI image response:', data);
