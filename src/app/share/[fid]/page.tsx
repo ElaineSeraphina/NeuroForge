@@ -30,4 +30,4 @@ export async function generateMetadata({ params }: SharePageProps): Promise<Meta
 export default function Page({ params }: SharePageProps) {
   redirect("/");
   return null;
-}
+}// trigger build
