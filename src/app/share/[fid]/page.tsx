@@ -10,7 +10,6 @@ interface PageProps {
   };
 }
 
-// generateMetadata harus menerima PageParams, bukan Promise
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const fid = params.fid;
   const imageUrl = `${APP_URL}/api/opengraph-image?fid=${fid}`;
