@@ -4,13 +4,13 @@ import { APP_URL, APP_NAME, APP_DESCRIPTION } from "~/lib/constants";
 import { getFrameEmbedMetadata } from "~/lib/utils";
 export const revalidate = 300;
 
-interface PageProps {
+interface SharePageProps {
   params: {
     fid: string;
   };
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: SharePageProps): Promise<Metadata> {
   const fid = params.fid;
   const imageUrl = `${APP_URL}/api/opengraph-image?fid=${fid}`;
 
@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default function Page({ params }: PageProps) {
+export default function Page({ params }: SharePageProps) {
   redirect("/");
   return null;
 }
