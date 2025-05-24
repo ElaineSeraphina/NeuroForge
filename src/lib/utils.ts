@@ -64,76 +64,30 @@ export function getFrameEmbedMetadata(ogImageUrl?: string) {
   };
 }
 
-export async function getFarcasterMetadata(): Promise<FrameManifest> {
-  // First check for FRAME_METADATA in .env and use that if it exists
-  if (process.env.FRAME_METADATA) {
-    try {
-      const metadata = JSON.parse(process.env.FRAME_METADATA);
-      console.log('Using pre-signed frame metadata from environment');
-      return metadata;
-    } catch (error) {
-      console.warn('Failed to parse FRAME_METADATA from environment:', error);
-    }
-  }
-
-  if (!APP_URL) {
-    throw new Error('NEXT_PUBLIC_URL not configured');
-  }
-
-  // Get the domain from the URL (without https:// prefix)
-  const domain = new URL(APP_URL).hostname;
-  console.log('Using domain for manifest:', domain);
-
-  const secretEnvVars = getSecretEnvVars();
-  if (!secretEnvVars) {
-    console.warn('No seed phrase or FID found in environment variables -- generating unsigned metadata');
-  }
-
-  let accountAssociation;
-  if (secretEnvVars) {
-    // Generate account from seed phrase
-    const account = mnemonicToAccount(secretEnvVars.seedPhrase);
-    const custodyAddress = account.address;
-
-    const header = {
-      fid: parseInt(secretEnvVars.fid),
-      type: 'custody',
-      key: custodyAddress,
-    };
-    const encodedHeader = Buffer.from(JSON.stringify(header), 'utf-8').toString('base64');
-
-    const payload = {
-      domain
-    };
-    const encodedPayload = Buffer.from(JSON.stringify(payload), 'utf-8').toString('base64url');
-
-    const signature = await account.signMessage({ 
-      message: `${encodedHeader}.${encodedPayload}`
-    });
-    const encodedSignature = Buffer.from(signature, 'utf-8').toString('base64url');
-
-    accountAssociation = {
-      header: encodedHeader,
-      payload: encodedPayload,
-      signature: encodedSignature
-    };
-  }
-
+export function getFarcasterMetadata() {
   return {
-    accountAssociation,
     frame: {
       version: "1",
-      name: APP_NAME ?? "Frames v2 Demo",
-      iconUrl: APP_ICON_URL,
-      homeUrl: APP_URL,
-      imageUrl: APP_OG_IMAGE_URL,
-      buttonTitle: APP_BUTTON_TEXT ?? "Launch Frame",
-      splashImageUrl: APP_SPLASH_URL,
-      splashBackgroundColor: APP_SPLASH_BACKGROUND_COLOR,
-      webhookUrl: APP_WEBHOOK_URL,
-      description: APP_DESCRIPTION,
-      primaryCategory: APP_PRIMARY_CATEGORY,
-      tags: APP_TAGS,
-    },
+      name: "NeuroForge",
+      iconUrl: "https://dark-ads-send.loca.lt/icon.png", // ← update ke tunnel aktif
+      homeUrl: "https://dark-ads-send.loca.lt",
+      imageUrl: "https://dark-ads-send.loca.lt/api/opengraph-image",
+      buttonTitle: "Start Creating",
+      splashImageUrl: "https://dark-ads-send.loca.lt/splash.png", // ← update ke tunnel aktif
+      splashBackgroundColor: "#f7f7f7",
+      webhookUrl: "https://api.neynar.com/f/app/b8ef3593-7d21-4e7e-8e37-17adfec955d8/event",
+      description: "A modern text-to-image generator using OpenAI GPT-Image-1. Futuristic UI, glass morphism, animated transitions, and a gallery for your creations.",
+      primaryCategory: "art-creativity",
+      tags: [
+        "Farcaster",
+        "creativity",
+        "AI",
+        "art",
+        "Warpcast",
+        "image-generation",
+        "onchain",
+        "community"
+      ]
+    }
   };
 }

@@ -1,0 +1,27 @@
+export function getFarcasterMetadata() {
+  return {
+    frame: {
+      version: "1",
+      name: "NeuroForge",
+      iconUrl: "https://dark-ads-send.loca.lt/icon.png", // ← update ke tunnel aktif
+      homeUrl: "https://dark-ads-send.loca.lt",
+      imageUrl: "https://dark-ads-send.loca.lt/api/opengraph-image",
+      buttonTitle: "Start Creating",
+      splashImageUrl: "https://dark-ads-send.loca.lt/splash.png", // ← update ke tunnel aktif
+      splashBackgroundColor: "#f7f7f7",
+      webhookUrl: "https://api.neynar.com/f/app/b8ef3593-7d21-4e7e-8e37-17adfec955d8/event",
+      description: "A modern text-to-image generator using OpenAI GPT-Image-1. Futuristic UI, glass morphism, animated transitions, and a gallery for your creations.",
+      primaryCategory: "art-creativity",
+      tags: [
+        "Farcaster",
+        "creativity",
+        "AI",
+        "art",
+        "Warpcast",
+        "image-generation",
+        "onchain",
+        "community"
+      ]
+    }
+  };
+}

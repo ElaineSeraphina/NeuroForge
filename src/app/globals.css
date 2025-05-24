@@ -3,34 +3,182 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
   font-family: 'Inter', Helvetica, Arial, sans-serif;
 }
 
+/* Hide scrollbars */
 * {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
-
 *::-webkit-scrollbar {
   display: none;
 }
 
+/* Tailwind custom radius */
 @layer base {
   :root {
     --radius: 0.5rem;
   }
 }
+
+/* === CYBERPUNK ANIMATIONS & EFFECTS === */
+@keyframes text-glow {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(6, 182, 212, 0.5),
+                 0 0 20px rgba(6, 182, 212, 0.3),
+                 0 0 30px rgba(6, 182, 212, 0.1);
+  }
+  50% {
+    text-shadow: 0 0 15px rgba(168, 85, 247, 0.5),
+                 0 0 25px rgba(168, 85, 247, 0.3),
+                 0 0 35px rgba(168, 85, 247, 0.1);
+  }
+}
+@keyframes gradient-x {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes glitch-horizontal {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100vw); }
+}
+@keyframes glitch-horizontal-reverse {
+  0% { transform: translateX(100vw); }
+  100% { transform: translateX(-100%); }
+}
+@keyframes glitch-vertical {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+@keyframes glitch-vertical-reverse {
+  0% { transform: translateY(100vh); }
+  100% { transform: translateY(-100%); }
+}
+@keyframes particle-1 {
+  0%, 100% { transform: translate(-50%, 0) scale(1); opacity: 1; }
+  50% { transform: translate(-50%, -20px) scale(1.5); opacity: 0.5; }
+}
+@keyframes particle-2 {
+  0%, 100% { transform: translate(0, -50%) scale(1); opacity: 1; }
+  50% { transform: translate(20px, -50%) scale(1.5); opacity: 0.5; }
+}
+@keyframes particle-3 {
+  0%, 100% { transform: translate(-50%, 0) scale(1); opacity: 1; }
+  50% { transform: translate(-50%, 20px) scale(1.5); opacity: 0.5; }
+}
+@keyframes particle-4 {
+  0%, 100% { transform: translate(0, -50%) scale(1); opacity: 1; }
+  50% { transform: translate(-20px, -50%) scale(1.5); opacity: 0.5; }
+}
+@keyframes orbit {
+  0% { transform: rotate(0deg) translateX(30px) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(30px) rotate(-360deg); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  25% { transform: translateY(-5px) translateX(5px); }
+  50% { transform: translateY(5px) translateX(-5px); }
+  75% { transform: translateY(-5px) translateX(-5px); }
+}
+@keyframes dash {
+  to { stroke-dashoffset: 100; }
+}
+@keyframes scanline {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 100%; }
+}
+@keyframes flow-right {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+@keyframes flow-left {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+@keyframes flow-down {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+@keyframes flow-up {
+  0% { transform: translateY(100%); }
+  100% { transform: translateY(-100%); }
+}
+@keyframes quantum-flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+@keyframes dimensional-shift {
+  0%, 100% { transform: translateZ(0) rotate(0); }
+  25% { transform: translateZ(10px) rotate(1deg); }
+  75% { transform: translateZ(-10px) rotate(-1deg); }
+}
+@keyframes neural-pulse {
+  0%, 100% { background-position: 0% 50%; opacity: 0.1; }
+  50% { background-position: 100% 50%; opacity: 0.3; }
+}
+@keyframes holographic-shift {
+  0%, 100% { filter: hue-rotate(0deg) brightness(1); }
+  50% { filter: hue-rotate(30deg) brightness(1.2); }
+}
+@keyframes energy-flow {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 200% 0%; }
+}
+
+/* Animation utility classes */
+.animate-text-glow { animation: text-glow 3s ease-in-out infinite; }
+.animate-gradient-x { animation: gradient-x 15s ease infinite; background-size: 200% 200%; }
+.animate-glitch-horizontal { animation: glitch-horizontal 8s linear infinite; }
+.animate-glitch-horizontal-reverse { animation: glitch-horizontal-reverse 12s linear infinite; }
+.animate-glitch-vertical { animation: glitch-vertical 10s linear infinite; }
+.animate-glitch-vertical-reverse { animation: glitch-vertical-reverse 15s linear infinite; }
+.animate-spin-slow { animation: spin 8s linear infinite; }
+.animate-spin-reverse { animation: spin 6s linear reverse infinite; }
+.animate-particle-1 { animation: particle-1 3s ease-in-out infinite; }
+.animate-particle-2 { animation: particle-2 4s ease-in-out infinite; }
+.animate-particle-3 { animation: particle-3 3.5s ease-in-out infinite; }
+.animate-particle-4 { animation: particle-4 4.5s ease-in-out infinite; }
+.animate-orbit { animation: orbit 5s linear infinite; }
+.animate-float { animation: float 5s ease-in-out infinite; }
+.animate-dash { animation: dash 20s linear infinite; stroke-dasharray: 10; }
+.animate-pulse-slow { animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+.animate-flow-right { animation: flow-right 3s linear infinite; }
+.animate-flow-left { animation: flow-left 3s linear infinite; }
+.animate-flow-down { animation: flow-down 3s linear infinite; }
+.animate-flow-up { animation: flow-up 3s linear infinite; }
+.animate-quantum-flicker { animation: quantum-flicker 2s ease-in-out infinite; }
+.animate-dimensional-shift { animation: dimensional-shift 5s ease-in-out infinite; }
+.animate-neural-pulse {
+  animation: neural-pulse 8s ease infinite;
+  background: linear-gradient(90deg, rgba(6, 182, 212, 0.1), rgba(236, 72, 153, 0.1), rgba(168, 85, 247, 0.1));
+  background-size: 200% 100%;
+}
+.animate-holographic-shift { animation: holographic-shift 5s ease-in-out infinite; }
+.animate-energy-flow {
+  animation: energy-flow 5s linear infinite;
+  background: linear-gradient(90deg, 
+    rgba(6, 182, 212, 0), 
+    rgba(6, 182, 212, 0.3), 
+    rgba(236, 72, 153, 0.3), 
+    rgba(168, 85, 247, 0.3), 
+    rgba(6, 182, 212, 0)
+  );
+  background-size: 200% 100%;
+}
+
+/* ...custom effect classes from your old project can be appended here as needed... */

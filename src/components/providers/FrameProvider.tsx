@@ -73,10 +73,15 @@ export function useFrame() {
       setContext(context);
       setIsSDKLoaded(true);
 
+      if (!context || !context.user) {
+        // Handle error, misal return null atau throw error custom
+        return;
+      }
+
       const amplitudeBaseEvent = {
-        fid: context.user.fid,
-        username: context.user.username,
-        clientFid: context.client.clientFid,
+        fid: context.user?.fid,
+        username: context.user?.username,
+        clientFid: context.client?.clientFid,
       };
       const amplitudeUserId = `${context.user.fid}-${context.client.clientFid}`;
 
@@ -174,4 +179,4 @@ export function FrameProvider({ children }: { children: React.ReactNode }) {
       {children}
     </FrameContext.Provider>
   );
-} 
+}
